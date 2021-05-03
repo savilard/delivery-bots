@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "delivery-bots"
+version = "0.1.0"
+description = ""
+authors = ["savilard <vitaliyantonoff@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+httpx = "^0.18.1"
+aiogram = "^2.13"
+pydantic = "^1.8.1"
+more-itertools = "^8.7.0"
+click = "^7.1.2"
+prompt-toolkit = "^3.0.18"
+loguru = "^0.5.3"
+emoji = "^1.2.0"
+transliterate = "^1.10.2"
+geopy = "^2.1.0"
+validate_email = "^1.3"
+APScheduler = "^3.7.0"
+ujson = "^4.0.2"
+
+[tool.poetry.dev-dependencies]
+add-trailing-comma = "^2.1.0"
+pytest-httpx = "^0.12.0"
+pytest = "^6.2.3"
+wemake-python-styleguide = "^0.15.2"
+black = "^21.4b2"
+pre-commit = "^2.12.1"
+pytest-pythonpath = "^0.7.3"
+pytest-randomly = "^3.7.0"
+pytest-asyncio = "^0.15.1"
+pytest-cov = "^2.11.1"
+mypy = "^0.812"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
