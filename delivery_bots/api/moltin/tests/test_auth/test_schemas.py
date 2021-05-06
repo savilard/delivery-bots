@@ -1,4 +1,5 @@
 import pytest
+
 from delivery_bots.api.moltin.auth.schemas import Auth
 
 

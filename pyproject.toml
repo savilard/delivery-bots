@@ -20,6 +20,7 @@ geopy = "^2.1.0"
 validate_email = "^1.3"
 APScheduler = "^3.7.0"
 ujson = "^4.0.2"
+aioredis = "^1.3.1"
 
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "^2.1.0"
@@ -37,3 +38,7 @@ mypy = "^0.812"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3

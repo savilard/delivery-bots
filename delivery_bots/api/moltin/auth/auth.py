@@ -1,8 +1,9 @@
 from typing import Dict
 
 import httpx
-from delivery_bots.api.moltin.auth.schemas import Auth
 from pydantic import BaseSettings, Field
+
+from delivery_bots.api.moltin.auth.schemas import Auth
 
 MOLTIN_API_OAUTH_URL = 'https://api.moltin.com/oauth'
 
