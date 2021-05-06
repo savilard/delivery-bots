@@ -3,9 +3,16 @@ from typing import Dict
 
 import pytest
 import ujson
-from delivery_bots.api.moltin.catalog_products import catalog_product
-from delivery_bots.api.moltin.catalog_products.schemas import CatalogProduct, DisplayPrice, Meta, Stock, TaxPrice
 from pytest_httpx import HTTPXMock
+
+from delivery_bots.api.moltin.catalog_products import catalog_product
+from delivery_bots.api.moltin.catalog_products.schemas import (
+    CatalogProduct,
+    DisplayPrice,
+    Meta,
+    Stock,
+    TaxPrice,
+)
 
 CATALOG_PRODUCT_BASE_URL = 'https://api.moltin.com/v2/products'
 

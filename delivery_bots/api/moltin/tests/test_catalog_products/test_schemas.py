@@ -1,4 +1,5 @@
 import pytest
+
 from delivery_bots.api.moltin.catalog_products.schemas import CatalogProduct
 
 

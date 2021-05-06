@@ -1,8 +1,9 @@
 from typing import Dict, Union
 
 import pytest
-from delivery_bots.api.moltin.auth.auth import get_headers
 from pytest_httpx import HTTPXMock
+
+from delivery_bots.api.moltin.auth.auth import get_headers
 
 URL = 'https://api.moltin.com/oauth/access_token'
 

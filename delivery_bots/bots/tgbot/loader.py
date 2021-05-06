@@ -2,6 +2,7 @@ import logging
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
+
 from delivery_bots.bots.tgbot.settings import Settings
 
 settings = Settings()
