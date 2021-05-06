@@ -2,6 +2,7 @@ from aiogram import Dispatcher, executor, types
 from aiogram.utils.emoji import emojize
 from delivery_bots.bots.tgbot.loader import dp
 from delivery_bots.bots.tgbot.logger import configure_logging
+from delivery_bots.bots.tgbot.menu.keyboard import create_menu_keyboard
 
 
 @dp.message_handler(commands=['start'], state='*')  # type: ignore
@@ -13,6 +14,7 @@ async def start(message: types.Message):
     """
     await message.answer(
         text=emojize('Пожалуйста, выберите :pizza:'),
+        reply_markup=await create_menu_keyboard(),
     )
 
 
