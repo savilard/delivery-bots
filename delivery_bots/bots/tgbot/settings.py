@@ -1,10 +1,15 @@
 from pydantic import BaseSettings, Field
 
 
-class Settings(BaseSettings):
-    """Validates values from environment variables."""
+class TgBotSettings(BaseSettings):
+    """Telegram bot settings."""
 
     token: str = Field(env='TELEGRAM_TOKEN')
-    redis_host: str = Field(env='REDIS_HOST')
-    redis_port: int = Field(env='REDIS_PORT')
-    redis_password: str = Field(env='REDIS_PASSWORD')
+
+
+class RedisSettings(BaseSettings):
+    """Redis settings."""
+
+    host: str = Field(env='REDIS_HOST')
+    port: int = Field(env='REDIS_PORT')
+    password: str = Field(env='REDIS_PASSWORD')

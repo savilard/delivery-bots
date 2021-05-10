@@ -6,7 +6,7 @@ from aiogram.utils.emoji import emojize
 from delivery_bots.bots.tgbot.logger import configure_logging
 from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
 from delivery_bots.bots.tgbot.menu.keyboard import create_menu_keyboard
-from delivery_bots.bots.tgbot.settings import Settings
+from delivery_bots.bots.tgbot.settings import RedisSettings, TgBotSettings
 from delivery_bots.bots.tgbot.states import BotState
 
 
@@ -36,16 +36,19 @@ async def shutdown(dispatcher: Dispatcher):
 
 
 if __name__ == '__main__':
-    settings = Settings()
+    tg_bot_settings = TgBotSettings()
+    redis_settings = RedisSettings()
+
     configure_logging(level='INFO')
 
-    bot = Bot(token=settings.token, validate_token=True, parse_mode='HTML')
+    bot = Bot(token=tg_bot_settings.token, validate_token=True, parse_mode='HTML')
 
     storage = RedisStorage2(
-        host=settings.redis_host,
-        port=settings.redis_port,
-        password=settings.redis_password,
+        host=redis_settings.host,
+        port=redis_settings.port,
+        password=redis_settings.password,
     )
+
     dp = Dispatcher(bot, storage=storage)
 
     register_start_handler(dp)
