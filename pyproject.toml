@@ -21,6 +21,7 @@ validate_email = "^1.3"
 APScheduler = "^3.7.0"
 ujson = "^4.0.2"
 aioredis = "^1.3.1"
+sentry-sdk = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "^2.1.0"
