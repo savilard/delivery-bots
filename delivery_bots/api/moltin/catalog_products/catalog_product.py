@@ -19,3 +19,11 @@ async def fetch_catalog_products(headers: Dict[str, str]):
         except (httpx.HTTPStatusError, httpx.RequestError):
             return None
         return response.json()
+
+
+async def fetch_catalog_product_detail(catalog_product_id: str, headers) -> httpx.Response:
+    """Fetches moltin catalog product detail."""
+    async with httpx.AsyncClient(base_url=CATALOG_PRODUCT_BASE_URL) as client:
+        response = await client.get(url=f'/{catalog_product_id}', headers=headers)
+        response.raise_for_status()
+        return response

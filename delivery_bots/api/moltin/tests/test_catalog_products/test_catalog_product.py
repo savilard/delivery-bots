@@ -1,7 +1,9 @@
 from http import HTTPStatus
 from typing import Dict
 
+import httpx
 import pytest
+import respx
 import ujson
 from pytest_httpx import HTTPXMock
 
@@ -66,6 +68,15 @@ def catalog_products_response(classic_tomato_pizza, buffalo_chicken_pizza):
     )
 
 
+@pytest.fixture
+def catalog_product_detail_response(classic_tomato_pizza):
+    return ujson.dumps(
+        {
+            'data': classic_tomato_pizza.dict(),
+        },
+    )
+
+
 class TestFetchCatalogProducts:
     """Tests for a function fetch_catalog_products."""
 
@@ -107,3 +118,28 @@ class TestFetchCatalogProducts:
         )
         response = await catalog_product.fetch_catalog_products(headers=headers)
         assert response is None
+
+
+class TestFetchCatalogProductDetail:
+    """Tests for a function fetch_catalog_product_detail."""
+
+    def test_has_fetch_catalog_product_detail_function(self):
+        """Tests the existence of a fetch_catalog_product_detail function."""
+        assert hasattr(catalog_product, 'fetch_catalog_product_detail')
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_fetch_catalog_product_detail(
+        self,
+        catalog_product_detail_response,
+        classic_tomato_pizza,
+        headers,
+    ):
+        request_mock = respx.get(f'{CATALOG_PRODUCT_BASE_URL}/{classic_tomato_pizza.id}')
+        request_mock.return_value = httpx.Response(200, json=catalog_product_detail_response)
+        response = await catalog_product.fetch_catalog_product_detail(
+            catalog_product_id=classic_tomato_pizza.id,
+            headers=headers,
+        )
+
+        assert response.json() == catalog_product_detail_response
