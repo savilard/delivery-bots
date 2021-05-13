@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, List
 
 import httpx
 
+from delivery_bots.api.moltin.catalog_products.schemas import CatalogProduct
 from delivery_bots.api.moltin.errors.exceptions import MoltinError
 
 CATALOG_PRODUCT_BASE_URL = 'https://api.moltin.com/v2/products'
@@ -20,7 +21,7 @@ async def fetch_catalog_products(headers: Dict[str, str]):
             response.raise_for_status()
         except httpx.HTTPStatusError:
             raise MoltinError(response.json())  # type: ignore
-        return response.json()
+        return response
 
 
 async def fetch_catalog_product_detail(catalog_product_id: str, headers) -> httpx.Response:
@@ -31,4 +32,24 @@ async def fetch_catalog_product_detail(catalog_product_id: str, headers) -> http
             response.raise_for_status()
         except httpx.HTTPStatusError:
             raise MoltinError(response.json())  # type: ignore
-        return response.json()
+        return response
+
+
+async def parse_catalog_products_response(response: httpx.Response) -> List[CatalogProduct]:
+    """Parse catalog product response.
+
+    :param response: response of fetching catalog products.
+    :return: list of catalog products in format List[CatalogProduct]
+    """
+    raw_catalog_products = response.json()
+    return [CatalogProduct(**raw_catalog_product) for raw_catalog_product in raw_catalog_products.get('data')]
+
+
+async def parse_catalog_product_detail_response(response: httpx.Response) -> CatalogProduct:
+    """Parse catalog product detail.
+
+    :param response: response of fetching catalog product detail.
+    :return: catalog product detail.
+    """
+    raw_catalog_product_detail = response.json()
+    return CatalogProduct(**raw_catalog_product_detail)
