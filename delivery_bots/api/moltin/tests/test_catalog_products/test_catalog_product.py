@@ -52,7 +52,8 @@ class TestFetchCatalogProductDetail:
         catalog_product_id = classic_tomato_pizza.id
         request_mock = respx.get(f'{CATALOG_PRODUCT_BASE_URL}/{catalog_product_id}')
         response = await catalog_product.fetch_catalog_product_detail(
-            catalog_product_id=catalog_product_id, headers=headers,
+            catalog_product_id=catalog_product_id,
+            headers=headers,
         )
         assert request_mock.called
         assert response.status_code == http.HTTPStatus.OK
@@ -76,5 +77,6 @@ class TestFetchCatalogProductDetail:
 
         with pytest.raises(MoltinError, match="{'error': 'message'}"):
             assert await catalog_product.fetch_catalog_product_detail(
-                catalog_product_id=catalog_product_id, headers=headers,
+                catalog_product_id=catalog_product_id,
+                headers=headers,
             )
