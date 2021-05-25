@@ -1,11 +1,5 @@
 # Delivery bots
 
-## Table of content
-
-- [Installation](#installation)
-- [How to run](#how-to-run)
-- [License](#license)
-
 ## Installation
 
 * Install [Poetry](https://python-poetry.org/), make and [Direnv](https://direnv.net/);
