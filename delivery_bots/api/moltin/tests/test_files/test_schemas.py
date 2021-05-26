@@ -10,7 +10,7 @@ def moltin_file_response():
             'type': 'file',
             'id': 'f8cf26b3-6d38-4275-937a-624a83994702',
             'link': {
-                'href': 'https://s3-eu-west-1.amazonaws.com/f8cf26b3-6d38-4275-937a-624a83994702.png'
+                'href': 'https://s3-eu-west-1.amazonaws.com/f8cf26b3-6d38-4275-937a-624a83994702.png',
             },
             'file_name': 'f6669358-85db-4367-9cde-1deb77acb5f4.png',
             'mime_type': 'image/png',
@@ -19,17 +19,16 @@ def moltin_file_response():
             'meta': {
                 'dimensions': {
                     'width': 1000,
-                    'height': 1000
+                    'height': 1000,
                 },
                 'timestamps': {
-                    'created_at': '2018-03-13T13:45:21.673Z'
-                }
+                    'created_at': '2018-03-13T13:45:21.673Z',
+                },
             },
             'links': {
-                'self':
-                    'https://api.moltin.com/v2/files/f8cf26b3-6d38-4275-937a-624a83994702'
-            }
-        }
+                'self': 'https://api.moltin.com/v2/files/f8cf26b3-6d38-4275-937a-624a83994702',
+            },
+        },
     }
 
 
