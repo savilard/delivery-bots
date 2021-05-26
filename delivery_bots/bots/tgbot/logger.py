@@ -18,7 +18,7 @@ class InterceptHandler(logging.Handler):
             frame = frame.f_back  # type: ignore
             depth += 1
 
-        logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+        logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())  # noqa: WPS221
 
 
 def configure_logging(level: Union[str, int] = 'DEBUG'):

@@ -5,3 +5,4 @@ class BotState(StatesGroup):
     """State class."""
 
     menu = State()
+    catalog_product_detail = State()
