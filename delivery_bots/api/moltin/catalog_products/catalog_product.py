@@ -2,6 +2,7 @@ from typing import Dict, List
 
 import httpx
 
+from delivery_bots.api.moltin.auth.auth import get_headers
 from delivery_bots.api.moltin.catalog_products.schemas import CatalogProduct
 from delivery_bots.api.moltin.errors.exceptions import MoltinError
 
@@ -53,3 +54,10 @@ async def parse_catalog_product_detail_response(response: httpx.Response) -> Cat
     """
     raw_catalog_product_detail = response.json()
     return CatalogProduct(**raw_catalog_product_detail.get('data'))
+
+
+async def get_catalog_products() -> list[CatalogProduct]:
+    """Gets moltin catalog products."""
+    headers = await get_headers()
+    catalog_products_response = await fetch_catalog_products(headers)
+    return await parse_catalog_products_response(catalog_products_response)

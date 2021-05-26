@@ -5,6 +5,7 @@ from aiogram.utils.emoji import emojize
 from delivery_bots.api.moltin.auth.auth import get_headers
 from delivery_bots.api.moltin.catalog_products.catalog_product import (
     fetch_catalog_products,
+    get_catalog_products,
     parse_catalog_products_response,
 )
 from delivery_bots.bots.tgbot.common.messages import delete_previous_message
@@ -32,9 +33,7 @@ async def edit_menu(query: CallbackQuery, state: FSMContext, chunk: int):
 
 async def go_to_menu(query: CallbackQuery, chunk: int):
     """Goes to the menu."""
-    headers = await get_headers()
-    catalog_products_response = await fetch_catalog_products(headers)
-    catalog_products = await parse_catalog_products_response(catalog_products_response)
+    catalog_products = await get_catalog_products()
 
     keyboard = await create_menu_keyboard(catalog_products=catalog_products, chunk=chunk)
     await query.message.answer(

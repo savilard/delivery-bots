@@ -3,10 +3,8 @@ from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.emoji import emojize
 
-from delivery_bots.api.moltin.auth.auth import get_headers
 from delivery_bots.api.moltin.catalog_products.catalog_product import (
-    fetch_catalog_products,
-    parse_catalog_products_response,
+    get_catalog_products,
 )
 from delivery_bots.bots.tgbot.catalog_product_detail.handlers import (
     register_catalog_product_detail_handler,
@@ -24,10 +22,7 @@ async def start(message: types.Message, state: FSMContext):
 
     When the bot is launched, the user is sent a menu with catalog products.
     """
-    headers = await get_headers()
-
-    catalog_products_response = await fetch_catalog_products(headers)
-    catalog_products = await parse_catalog_products_response(catalog_products_response)
+    catalog_products = await get_catalog_products()
 
     await message.answer(
         text=emojize('Пожалуйста, выберите :pizza:'),
