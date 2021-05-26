@@ -5,6 +5,7 @@ from aiogram.types import CallbackQuery
 from delivery_bots.bots.tgbot.catalog_product_detail.messages import (
     send_detailed_catalog_product_description,
 )
+from delivery_bots.bots.tgbot.common.messages import delete_previous_message
 from delivery_bots.bots.tgbot.menu.messages import edit_menu
 from delivery_bots.bots.tgbot.states import BotState
 
@@ -22,6 +23,7 @@ async def handle_menu(query: CallbackQuery, state: FSMContext):
         await BotState.menu.set()
     else:
         await send_detailed_catalog_product_description(query)
+        await delete_previous_message(query)
         await BotState.description.set()
 
 
