@@ -2,6 +2,9 @@ from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
 
+from delivery_bots.bots.tgbot.catalog_product_detail.messages import (
+    send_detailed_catalog_product_description,
+)
 from delivery_bots.bots.tgbot.menu.messages import edit_menu
 from delivery_bots.bots.tgbot.states import BotState
 
@@ -17,6 +20,9 @@ async def handle_menu(query: CallbackQuery, state: FSMContext):
     elif query.data == 'prev':
         await edit_menu(query=query, state=state, chunk=chunk - 1)
         await BotState.menu.set()
+    else:
+        await send_detailed_catalog_product_description(query)
+        await BotState.description.set()
 
 
 def register_menu_handler(dp: Dispatcher):

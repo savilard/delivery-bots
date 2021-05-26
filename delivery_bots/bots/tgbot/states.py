@@ -5,3 +5,4 @@ class BotState(StatesGroup):
     """State class."""
 
     menu = State()
+    description = State()
