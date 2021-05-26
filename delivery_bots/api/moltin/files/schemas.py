@@ -6,7 +6,7 @@ class Link(BaseModel):
 
 
 class Links(BaseModel):
-    self: str
+    self: str  # noqa: WPS117
 
 
 class Dimensions(BaseModel):
