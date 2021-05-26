@@ -52,4 +52,4 @@ async def parse_catalog_product_detail_response(response: httpx.Response) -> Cat
     :return: catalog product detail.
     """
     raw_catalog_product_detail = response.json()
-    return CatalogProduct(**raw_catalog_product_detail)
+    return CatalogProduct(**raw_catalog_product_detail.get('data'))
