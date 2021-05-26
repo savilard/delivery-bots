@@ -6,6 +6,9 @@ from delivery_bots.api.moltin.catalog_products.catalog_product import (
     parse_catalog_product_detail_response,
 )
 from delivery_bots.api.moltin.files.file_detail import get_catalog_product_image_url
+from delivery_bots.bots.tgbot.catalog_product_detail.keyboard import (
+    create_catalog_product_detail_keyboard,
+)
 
 
 async def send_detailed_catalog_product_description(query: CallbackQuery) -> None:
@@ -30,4 +33,5 @@ async def send_detailed_catalog_product_description(query: CallbackQuery) -> Non
     await query.message.answer_photo(
         photo=catalog_product_image_url,
         caption=message_text,
+        reply_markup=await create_catalog_product_detail_keyboard(),
     )

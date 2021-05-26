@@ -7,7 +7,9 @@ from delivery_bots.api.moltin.catalog_products.catalog_product import (
     fetch_catalog_products,
     parse_catalog_products_response,
 )
+from delivery_bots.bots.tgbot.common.messages import delete_previous_message
 from delivery_bots.bots.tgbot.menu.keyboard import create_menu_keyboard
+from delivery_bots.bots.tgbot.states import BotState
 
 
 async def edit_menu(query: CallbackQuery, state: FSMContext, chunk: int):
@@ -26,3 +28,18 @@ async def edit_menu(query: CallbackQuery, state: FSMContext, chunk: int):
         parse_mode=ParseMode.HTML,
         reply_markup=keyboard,
     )
+
+
+async def go_to_menu(query: CallbackQuery, chunk: int):
+    """Goes to the menu."""
+    headers = await get_headers()
+    catalog_products_response = await fetch_catalog_products(headers)
+    catalog_products = await parse_catalog_products_response(catalog_products_response)
+
+    keyboard = await create_menu_keyboard(catalog_products=catalog_products, chunk=chunk)
+    await query.message.answer(
+        text=emojize('Пожалуйста, выберите :pizza:'),
+        reply_markup=keyboard,
+    )
+    await delete_previous_message(query)
+    await BotState.menu.set()

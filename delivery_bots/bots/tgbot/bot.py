@@ -8,6 +8,9 @@ from delivery_bots.api.moltin.catalog_products.catalog_product import (
     fetch_catalog_products,
     parse_catalog_products_response,
 )
+from delivery_bots.bots.tgbot.catalog_product_detail.handlers import (
+    register_catalog_product_detail_handler,
+)
 from delivery_bots.bots.tgbot.logger import configure_logging
 from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
 from delivery_bots.bots.tgbot.menu.keyboard import create_menu_keyboard
@@ -63,6 +66,7 @@ if __name__ == '__main__':
 
     register_start_handler(dp)
     register_menu_handler(dp)
+    register_catalog_product_detail_handler(dp)
 
     executor.start_polling(
         dp,

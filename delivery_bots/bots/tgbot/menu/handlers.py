@@ -24,7 +24,7 @@ async def handle_menu(query: CallbackQuery, state: FSMContext):
     else:
         await send_detailed_catalog_product_description(query)
         await delete_previous_message(query)
-        await BotState.description.set()
+        await BotState.catalog_product_detail.set()
 
 
 def register_menu_handler(dp: Dispatcher):
