@@ -55,3 +55,33 @@ async def add_product_to_cart(
         except httpx.HTTPStatusError:
             raise MoltinError(response.json())  # type: ignore
         return response
+
+
+async def get_cart_products(cart_id: str) -> httpx.Response:
+    """Gets a list of products in the cart.
+
+    If a Cart does not exist with a provided reference, one is created and an empty cart items array is returned.
+
+    Args:
+        cart_id: elasticpath cart id (example, id of telegram user).
+
+    Returns:
+        object: list of products in the cart.
+
+    Usage example:
+        cart_products_response = await get_cart_products(cart_id='1252124')
+
+    Raises:
+        MoltinError: Raises an httpx.HTTPStatusError exception.
+    """
+    headers = await get_headers()
+    async with httpx.AsyncClient(base_url=CART_BASE_URL) as client:
+        response = await client.get(
+            url=f'/{cart_id}/items',
+            headers=headers,
+        )
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError:
+            raise MoltinError(response.json())  # type: ignore
+        return response
