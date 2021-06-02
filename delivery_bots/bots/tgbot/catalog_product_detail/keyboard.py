@@ -1,22 +1,20 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.utils.emoji import emojize
+from aiogram.types import InlineKeyboardMarkup
 
-from delivery_bots.bots.tgbot.common.keyboard_buttons import (
-    CART_BUTTON,
-    SHOW_MENU_BUTTON,
+from delivery_bots.bots.tgbot.cart.buttons import (
+    make_add_product_to_cart_button,
+    make_cart_button,
 )
-
-ADD_TO_CART_BUTTON = InlineKeyboardButton(
-    text=emojize('➕ Добавить в корзину'),
-    callback_data='add_to_cart',
-)
+from delivery_bots.bots.tgbot.common.keyboard_buttons import SHOW_MENU_BUTTON
 
 
 async def create_catalog_product_detail_keyboard() -> InlineKeyboardMarkup:
     """The function collects a keyboard for product description."""
+    cart_button = await make_cart_button()
+    add_product_to_cart_button = await make_add_product_to_cart_button()
+
     keyboard = [
-        [ADD_TO_CART_BUTTON],
-        [CART_BUTTON],
+        [add_product_to_cart_button],
+        [cart_button],
         [SHOW_MENU_BUTTON],
     ]
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
