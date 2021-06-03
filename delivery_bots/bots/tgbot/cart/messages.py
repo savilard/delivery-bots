@@ -3,7 +3,11 @@ from aiogram.types import CallbackQuery
 from delivery_bots.api.moltin.cart.schemas import CartProduct
 
 
-async def display_cart(query: CallbackQuery, cart_products: list[CartProduct]) -> None:
+async def display_cart(
+    query: CallbackQuery,
+    cart_products: list[CartProduct],
+    cart_total_amount: str,
+) -> None:
     """Sends message with Moltin cart content."""
     message_text = [
         '{name}\n{description}\n{quantity} пицц в корзине на сумму {amount}\n\n'.format(
@@ -14,4 +18,5 @@ async def display_cart(query: CallbackQuery, cart_products: list[CartProduct]) -
         )
         for cart_product in cart_products
     ]
+    message_text.append(f'К оплате {cart_total_amount}')
     await query.message.answer(text=''.join(message_text))
