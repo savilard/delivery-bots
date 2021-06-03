@@ -89,3 +89,18 @@ async def parse_cart_products_response(cart_products_response: httpx.Response):
     """Parse Moltin cart products response."""
     raw_cart_products = cart_products_response.json()
     return [CartProduct(**raw_cart_product) for raw_cart_product in raw_cart_products.get('data')]
+
+
+async def fetch_cart_response(cart_id: str) -> httpx.Response:
+    """Fetches cart response."""
+    headers = await get_headers()
+    async with httpx.AsyncClient(base_url=CART_BASE_URL) as client:
+        response = await client.get(
+            url=f'/{cart_id}',
+            headers=headers,
+        )
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError:
+            raise MoltinError(response.json())  # type: ignore
+        return response
