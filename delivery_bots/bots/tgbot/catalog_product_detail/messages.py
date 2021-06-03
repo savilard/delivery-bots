@@ -1,3 +1,4 @@
+from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
 
 from delivery_bots.api.moltin.auth.auth import get_headers
@@ -11,15 +12,19 @@ from delivery_bots.bots.tgbot.catalog_product_detail.keyboard import (
 )
 
 
-async def send_detailed_catalog_product_description(query: CallbackQuery) -> None:
+async def send_detailed_catalog_product_description(query: CallbackQuery, state: FSMContext) -> None:
     """Sends message with a detailed catalog product description."""
     headers = await get_headers()
 
-    catalog_product_detail_response = await fetch_catalog_product_detail(
-        catalog_product_id=query.data,
-        headers=headers,
+    catalog_product_id = query.data
+    await state.update_data(catalog_product_id=catalog_product_id)
+
+    catalog_product_detail = await parse_catalog_product_detail_response(
+        await fetch_catalog_product_detail(
+            catalog_product_id=catalog_product_id,
+            headers=headers,
+        ),
     )
-    catalog_product_detail = await parse_catalog_product_detail_response(catalog_product_detail_response)
     catalog_product_image_url = await get_catalog_product_image_url(
         headers=headers,
         image_id=catalog_product_detail.relationships.main_image.data.id,  # type: ignore
