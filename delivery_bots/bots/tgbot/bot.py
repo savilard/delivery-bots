@@ -6,6 +6,7 @@ from aiogram.utils.emoji import emojize
 from delivery_bots.api.moltin.catalog_products.catalog_product import (
     get_catalog_products,
 )
+from delivery_bots.bots.tgbot.cart.handlers import register_handler_cart
 from delivery_bots.bots.tgbot.catalog_product_detail.handlers import (
     register_catalog_product_detail_handler,
 )
@@ -62,6 +63,7 @@ if __name__ == '__main__':
     register_start_handler(dp)
     register_menu_handler(dp)
     register_catalog_product_detail_handler(dp)
+    register_handler_cart(dp)
 
     executor.start_polling(
         dp,
