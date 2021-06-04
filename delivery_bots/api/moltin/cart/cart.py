@@ -104,3 +104,18 @@ async def fetch_cart_response(cart_id: str) -> httpx.Response:
         except httpx.HTTPStatusError:
             raise MoltinError(response.json())  # type: ignore
         return response
+
+
+async def remove_product_from_cart(cart_id: str, cart_product_id: str) -> httpx.Response:
+    """Removes the specified product from the cart."""
+    headers = await get_headers()
+    async with httpx.AsyncClient(base_url=CART_BASE_URL) as client:
+        response = await client.delete(
+            url=f'/{cart_id}/items/{cart_product_id}',
+            headers=headers,
+        )
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError:
+            raise MoltinError(response.json())  # type: ignore
+        return response

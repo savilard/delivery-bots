@@ -1,6 +1,7 @@
 from aiogram.types import CallbackQuery
 
 from delivery_bots.api.moltin.cart.schemas import CartProduct
+from delivery_bots.bots.tgbot.cart.keyboards import create_cart_keyboard
 
 
 async def display_cart(
@@ -19,4 +20,7 @@ async def display_cart(
         for cart_product in cart_products
     ]
     message_text.append(f'К оплате {cart_total_amount}')
-    await query.message.answer(text=''.join(message_text))
+    await query.message.answer(
+        text=''.join(message_text),
+        reply_markup=await create_cart_keyboard(cart_products),
+    )
