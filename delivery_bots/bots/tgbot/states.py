@@ -7,3 +7,4 @@ class BotState(StatesGroup):
     menu = State()
     catalog_product_detail = State()
     cart = State()
+    geo = State()
