@@ -13,3 +13,9 @@ class RedisSettings(BaseSettings):
     host: str = Field(env='REDIS_HOST')
     port: int = Field(env='REDIS_PORT')
     password: str = Field(env='REDIS_PASSWORD')
+
+
+class YandexGeocoderApiSettings(BaseSettings):
+    """Yandex geocoder api settings."""
+
+    api_key: str = Field(env='YANDEX_GEOCODER_API_KEY')
