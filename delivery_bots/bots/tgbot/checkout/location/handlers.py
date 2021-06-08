@@ -3,6 +3,11 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.emoji import emojize
 
+from delivery_bots.api.moltin.entry.entry import (
+    fetch_all_entries,
+    parse_all_entries_response,
+)
+from delivery_bots.bots.tgbot.checkout.location.location import find_nearest_pizzeria
 from delivery_bots.bots.tgbot.settings import YandexGeocoderApiSettings
 from delivery_bots.bots.tgbot.states import BotState
 
@@ -46,6 +51,13 @@ async def handle_customer_address(message: types.Message, state: FSMContext):
     await state.update_data(customer_address=message.text)
     await state.update_data(customer_lon=location[0])
     await state.update_data(customer_lat=location[1])
+
+    entries = await parse_all_entries_response(await fetch_all_entries('pizzeria'))
+    await find_nearest_pizzeria(
+        entries=entries,
+        customer_lon=location[0],
+        customer_lat=location[1],
+    )
 
 
 def register_handlers_location(dp: Dispatcher):
