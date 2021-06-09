@@ -4,9 +4,6 @@ from aiogram.types import CallbackQuery
 
 from delivery_bots.api.moltin.cart.cart import remove_product_from_cart
 from delivery_bots.bots.tgbot.cart.cart import go_to_cart
-from delivery_bots.bots.tgbot.checkout.location.messages import (
-    request_customer_location,
-)
 from delivery_bots.bots.tgbot.menu.messages import go_to_menu
 from delivery_bots.bots.tgbot.states import BotState
 
@@ -21,7 +18,8 @@ async def handler_cart(query: CallbackQuery, state: FSMContext):
         return None
 
     if query.data == 'checkout':
-        await request_customer_location(query)
+        await query.message.answer(text='Пришлите, пожалуйста, ваш email.')
+        await BotState.waiting_mail.set()
         return None
 
     await remove_product_from_cart(cart_id=query.from_user.id, cart_product_id=query.data)

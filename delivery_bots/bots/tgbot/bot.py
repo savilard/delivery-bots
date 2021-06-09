@@ -10,6 +10,9 @@ from delivery_bots.bots.tgbot.cart.handlers import register_handler_cart
 from delivery_bots.bots.tgbot.catalog_product_detail.handlers import (
     register_catalog_product_detail_handler,
 )
+from delivery_bots.bots.tgbot.checkout.customer_contacts.handlers import (
+    register_handler_waiting_email,
+)
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
 )
@@ -68,6 +71,7 @@ if __name__ == '__main__':
     register_catalog_product_detail_handler(dp)
     register_handler_cart(dp)
     register_handlers_location(dp)
+    register_handler_waiting_email(dp)
 
     executor.start_polling(
         dp,
