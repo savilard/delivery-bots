@@ -1,4 +1,5 @@
-from aiogram.types import CallbackQuery, KeyboardButton, Message, ReplyKeyboardMarkup
+from aiogram.types import KeyboardButton, Message, ReplyKeyboardMarkup
+
 
 from delivery_bots.api.moltin.entry.entry import (
     fetch_all_entries,
@@ -8,12 +9,12 @@ from delivery_bots.api.moltin.entry.entry import (
 from delivery_bots.bots.tgbot.states import BotState
 
 
-async def request_customer_location(query: CallbackQuery) -> None:
+async def request_customer_location(message: Message) -> None:
     """Requests customer location."""
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(
         KeyboardButton('Отправить локацию', request_location=True),
     )
-    await query.message.answer(
+    await message.answer(
         text='Пришлите нам ваш адрес текстом или геолокацию',
         reply_markup=keyboard,
     )
