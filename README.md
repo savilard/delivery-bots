@@ -2,6 +2,7 @@
 
 ### Latest Changes
 
+* :memo: Add latest changes to README.md. PR [#19](https://github.com/savilard/delivery-bots/pull/19) by [@savilard](https://github.com/savilard).
 
 
 ## Installation
