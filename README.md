@@ -2,6 +2,7 @@
 
 ### Latest Changes
 
+* :robot: Add customer account creation to Moltin. PR [#20](https://github.com/savilard/delivery-bots/pull/20) by [@savilard](https://github.com/savilard).
 * :memo: Add latest changes to README.md. PR [#19](https://github.com/savilard/delivery-bots/pull/19) by [@savilard](https://github.com/savilard).
 
 
