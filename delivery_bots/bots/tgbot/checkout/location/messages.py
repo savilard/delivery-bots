@@ -1,6 +1,5 @@
 from aiogram.types import KeyboardButton, Message, ReplyKeyboardMarkup
 
-
 from delivery_bots.api.moltin.entry.entry import (
     fetch_all_entries,
     find_nearest_pizzeria,
