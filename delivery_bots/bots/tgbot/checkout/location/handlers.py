@@ -1,5 +1,6 @@
 import httpx
 from aiogram import Dispatcher, types
+from aiogram.dispatcher import FSMContext
 from aiogram.utils.emoji import emojize
 
 from delivery_bots.bots.tgbot.checkout.location.messages import (
@@ -27,17 +28,18 @@ async def fetch_coordinates(geocoder_api_key: str, place: str):
         return most_relevant['GeoObject']['Point']['pos'].split(' ')
 
 
-async def handle_customer_location(message: types.Message):
+async def handle_customer_location(message: types.Message, state: FSMContext):
     """Processes the received coordinates of the customer."""
     location = message.location
     await send_delivery_terms_to_customer(
         message=message,
         customer_lon=location.longitude,
         customer_lat=location.latitude,
+        state=state,
     )
 
 
-async def handle_customer_address(message: types.Message):
+async def handle_customer_address(message: types.Message, state: FSMContext):
     """Processes the received address of the customer."""
     location = await fetch_coordinates(
         geocoder_api_key=YandexGeocoderApiSettings().api_key,
@@ -52,6 +54,7 @@ async def handle_customer_address(message: types.Message):
         message=message,
         customer_lon=location[0],
         customer_lat=location[1],
+        state=state,
     )
 
 
