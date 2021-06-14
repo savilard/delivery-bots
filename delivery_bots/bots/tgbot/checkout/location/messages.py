@@ -63,6 +63,8 @@ async def send_delivery_terms_to_customer(
         customer_lat=customer_lat,
     )
     await state.update_data(nearest_pizzeria=nearest_pizzeria['pizzeria'].json())
+    await state.update_data(customer_lon=customer_lon)
+    await state.update_data(customer_lat=customer_lat)
 
     await message.answer(
         text=make_message_with_delivery_terms(nearest_pizzeria),

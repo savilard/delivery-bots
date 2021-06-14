@@ -39,6 +39,11 @@ async def handle_delivery(query: CallbackQuery, state: FSMContext):  # noqa: WPS
             chat_id=nearest_pizzeria.deliveryman_tg_id,
             text=cart_content_message,
         )
+        await query.message.bot.send_location(
+            chat_id=nearest_pizzeria.deliveryman_tg_id,
+            latitude=current_state['customer_lat'],
+            longitude=current_state['customer_lon'],
+        )
 
 
 def register_handler_delivery(dp: Dispatcher):
