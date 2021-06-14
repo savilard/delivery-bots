@@ -9,3 +9,4 @@ class BotState(StatesGroup):
     cart = State()
     waiting_mail = State()
     geo = State()
+    delivery = State()

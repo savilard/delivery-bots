@@ -1,3 +1,4 @@
+from aiogram.dispatcher import FSMContext
 from aiogram.types import KeyboardButton, Message, ReplyKeyboardMarkup
 
 from delivery_bots.api.moltin.entry.entry import (
@@ -48,7 +49,12 @@ def make_message_with_delivery_terms(nearest_pizzeria) -> str:
     return message_text
 
 
-async def send_delivery_terms_to_customer(message: Message, customer_lon, customer_lat) -> None:
+async def send_delivery_terms_to_customer(
+    message: Message,
+    customer_lon,
+    customer_lat,
+    state: FSMContext,
+) -> None:
     """Sends delivery terms to the customer."""
     entries = await parse_all_entries_response(await fetch_all_entries('pizzeria'))
     nearest_pizzeria = await find_nearest_pizzeria(
@@ -56,7 +62,10 @@ async def send_delivery_terms_to_customer(message: Message, customer_lon, custom
         customer_lon=customer_lon,
         customer_lat=customer_lat,
     )
+    await state.update_data(nearest_pizzeria=nearest_pizzeria['pizzeria'].json())
+
     await message.answer(
         text=make_message_with_delivery_terms(nearest_pizzeria),
         reply_markup=await create_delivery_keyboard(nearest_pizzeria['distance_to_user']),
     )
+    await BotState.delivery.set()
