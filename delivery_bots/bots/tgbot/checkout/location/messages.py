@@ -5,6 +5,9 @@ from delivery_bots.api.moltin.entry.entry import (
     find_nearest_pizzeria,
     parse_all_entries_response,
 )
+from delivery_bots.bots.tgbot.checkout.delivery.keyboards import (
+    create_delivery_keyboard,
+)
 from delivery_bots.bots.tgbot.states import BotState
 
 
@@ -53,4 +56,7 @@ async def send_delivery_terms_to_customer(message: Message, customer_lon, custom
         customer_lon=customer_lon,
         customer_lat=customer_lat,
     )
-    await message.answer(text=make_message_with_delivery_terms(nearest_pizzeria))
+    await message.answer(
+        text=make_message_with_delivery_terms(nearest_pizzeria),
+        reply_markup=await create_delivery_keyboard(nearest_pizzeria['distance_to_user']),
+    )
