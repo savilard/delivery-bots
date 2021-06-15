@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseSettings, Field
 
 
@@ -5,6 +7,7 @@ class TgBotSettings(BaseSettings):
     """Telegram bot settings."""
 
     token: str = Field(env='TELEGRAM_TOKEN')
+    tg_id_of_delivery_men: List[int] = Field(env='ID_OF_DELIVERY_MEN')
 
 
 class RedisSettings(BaseSettings):
