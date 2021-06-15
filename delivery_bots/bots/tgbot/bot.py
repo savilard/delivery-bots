@@ -16,8 +16,15 @@ from delivery_bots.bots.tgbot.checkout.customer_contacts.handlers import (
 from delivery_bots.bots.tgbot.checkout.delivery.handlers import (
     register_handler_delivery,
 )
+from delivery_bots.bots.tgbot.checkout.delivery_man.handlers import (
+    register_handler_delivery_man,
+)
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
+)
+from delivery_bots.bots.tgbot.common.filters.role import (
+    CustomerFilter,
+    DeliveryManFilter,
 )
 from delivery_bots.bots.tgbot.logger import configure_logging
 from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
@@ -44,7 +51,7 @@ async def start(message: types.Message, state: FSMContext):
 
 def register_start_handler(dispatcher: Dispatcher):
     """Register start handler."""
-    dispatcher.register_message_handler(start, commands=['start'], state='*')
+    dispatcher.register_message_handler(start, CustomerFilter(), commands=['start'], state='*')
 
 
 async def shutdown(dispatcher: Dispatcher):
@@ -76,6 +83,10 @@ if __name__ == '__main__':
     register_handlers_location(dp)
     register_handler_waiting_email(dp)
     register_handler_delivery(dp)
+    register_handler_delivery_man(dp)
+
+    dp.filters_factory.bind(DeliveryManFilter)
+    dp.filters_factory.bind(CustomerFilter)
 
     executor.start_polling(
         dp,
