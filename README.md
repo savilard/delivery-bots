@@ -2,6 +2,7 @@
 
 ### Latest Changes
 
+* :robot: Add order reminder. PR [#23](https://github.com/savilard/delivery-bots/pull/23) by [@savilard](https://github.com/savilard).
 * :robot: Add role filter. PR [#22](https://github.com/savilard/delivery-bots/pull/22) by [@savilard](https://github.com/savilard).
 * :robot: Add choice of delivery method for customer. PR [#21](https://github.com/savilard/delivery-bots/pull/21) by [@savilard](https://github.com/savilard).
 * :robot: Add customer account creation to Moltin. PR [#20](https://github.com/savilard/delivery-bots/pull/20) by [@savilard](https://github.com/savilard).
