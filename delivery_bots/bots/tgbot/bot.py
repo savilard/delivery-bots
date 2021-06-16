@@ -17,7 +17,7 @@ from delivery_bots.bots.tgbot.checkout.delivery.handlers import (
     register_handler_delivery,
 )
 from delivery_bots.bots.tgbot.checkout.delivery_man.handlers import (
-    register_handler_delivery_man,
+    register_handler_take_order_button,
 )
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     register_handlers_location(dp)
     register_handler_waiting_email(dp)
     register_handler_delivery(dp)
-    register_handler_delivery_man(dp)
+    register_handler_take_order_button(dp)
 
     dp.filters_factory.bind(DeliveryManFilter)
     dp.filters_factory.bind(CustomerFilter)
