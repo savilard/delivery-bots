@@ -6,6 +6,7 @@ from delivery_bots.bots.tgbot.cart.cart import go_to_cart
 from delivery_bots.bots.tgbot.catalog_product_detail.messages import (
     send_detailed_catalog_product_description,
 )
+from delivery_bots.bots.tgbot.common.filters.role import CustomerFilter
 from delivery_bots.bots.tgbot.common.messages import delete_previous_message
 from delivery_bots.bots.tgbot.menu.messages import edit_menu
 from delivery_bots.bots.tgbot.states import BotState
@@ -33,4 +34,4 @@ async def handle_menu(query: CallbackQuery, state: FSMContext):
 
 def register_menu_handler(dp: Dispatcher):
     """Register menu handler."""
-    dp.register_callback_query_handler(handle_menu, state=BotState.menu)
+    dp.register_callback_query_handler(handle_menu, CustomerFilter(), state=BotState.menu)

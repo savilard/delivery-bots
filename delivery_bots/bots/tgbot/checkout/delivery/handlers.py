@@ -11,6 +11,9 @@ from delivery_bots.api.moltin.cart.cart import (
 from delivery_bots.api.moltin.cart.cart_schemas import Cart
 from delivery_bots.api.moltin.entry.schemas import Entry
 from delivery_bots.bots.tgbot.cart.messages import make_cart_content_message
+from delivery_bots.bots.tgbot.checkout.delivery_man.keyboards import (
+    create_deliverer_keyboard,
+)
 from delivery_bots.bots.tgbot.states import BotState
 
 
@@ -43,6 +46,11 @@ async def handle_delivery(query: CallbackQuery, state: FSMContext):  # noqa: WPS
             chat_id=nearest_pizzeria.deliveryman_tg_id,
             latitude=current_state['customer_lat'],
             longitude=current_state['customer_lon'],
+            reply_markup=await create_deliverer_keyboard(
+                button_text='Взять заказ',
+                callback_action='take_order',
+                customer_tg_id=query.from_user.id,
+            ),
         )
 
 
