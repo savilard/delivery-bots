@@ -1,14 +1,16 @@
 from aiogram import Dispatcher, types
+from aiogram.dispatcher import FSMContext
 
 from delivery_bots.bots.tgbot.settings import TgBotSettings
 from delivery_bots.bots.tgbot.states import BotState
 
 
-async def handle_payment(query: types.CallbackQuery):
+async def handle_payment(query: types.CallbackQuery, state: FSMContext):
     """Handle payment."""
+    current_state = await state.get_data()
     payment_token = TgBotSettings().payment_token
     order_total_amount = 50000
-    delivery_total_amount = 10000
+    delivery_total_amount = current_state['delivery_total_amount']
 
     await query.message.bot.send_invoice(
         query.from_user.id,
