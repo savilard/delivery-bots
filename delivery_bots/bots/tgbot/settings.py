@@ -10,6 +10,7 @@ class TgBotSettings(BaseSettings):
     tg_id_of_delivery_men: List[int] = Field(env='ID_OF_DELIVERY_MEN')
     estimated_delivery_time: int = Field(env='ESTIMATED_DELIVERY_TIME')
     message_for_customer: str = Field(env='MESSAGE_FOR_CUSTOMER')
+    payment_token: str = Field(env='PAYMENT_TOKEN')
 
 
 class RedisSettings(BaseSettings):

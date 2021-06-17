@@ -43,6 +43,7 @@ async def handle_delivery(query: CallbackQuery, state: FSMContext):  # noqa: WPS
             text='Ваш заказ успешно оформлен! Оплатите его картой через телеграм.',
             reply_markup=await create_payment_keyboard(),
         )
+        await BotState.payment.set()
         await query.message.bot.send_message(
             chat_id=nearest_pizzeria.deliveryman_tg_id,
             text=cart_content_message,

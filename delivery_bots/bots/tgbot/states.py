@@ -10,3 +10,4 @@ class BotState(StatesGroup):
     waiting_mail = State()
     geo = State()
     delivery = State()
+    payment = State()

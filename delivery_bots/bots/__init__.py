@@ -14,6 +14,7 @@ from delivery_bots.bots.tgbot.checkout.delivery_man.handlers import (
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
 )
+from delivery_bots.bots.tgbot.checkout.payment.handlers import register_payment_handler
 from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
 from delivery_bots.bots.tgbot.servises.filters.role import (
     CustomerFilter,
@@ -32,6 +33,7 @@ def register_handlers(dp) -> None:
     register_handler_waiting_email(dp)
     register_handler_delivery(dp)
     register_handler_take_order_button(dp)
+    register_payment_handler(dp)
 
 
 def register_filters(dp) -> None:
