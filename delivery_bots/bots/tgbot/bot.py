@@ -1,11 +1,7 @@
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
-from delivery_bots.bots import register_handlers
-from delivery_bots.bots.tgbot.common.filters.role import (
-    CustomerFilter,
-    DeliveryManFilter,
-)
+from delivery_bots.bots import register_filters, register_handlers
 from delivery_bots.bots.tgbot.logger import configure_logging
 from delivery_bots.bots.tgbot.settings import RedisSettings, TgBotSettings
 
@@ -33,9 +29,7 @@ if __name__ == '__main__':
     dp = Dispatcher(bot, storage=storage)
 
     register_handlers(dp)
-
-    dp.filters_factory.bind(DeliveryManFilter)
-    dp.filters_factory.bind(CustomerFilter)
+    register_filters(dp)
 
     executor.start_polling(
         dp,

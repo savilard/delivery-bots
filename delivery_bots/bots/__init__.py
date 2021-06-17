@@ -14,6 +14,10 @@ from delivery_bots.bots.tgbot.checkout.delivery_man.handlers import (
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
 )
+from delivery_bots.bots.tgbot.common.filters.role import (
+    CustomerFilter,
+    DeliveryManFilter,
+)
 from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
 from delivery_bots.bots.tgbot.start.handlers import register_start_handler
 
@@ -28,3 +32,9 @@ def register_handlers(dp) -> None:
     register_handler_waiting_email(dp)
     register_handler_delivery(dp)
     register_handler_take_order_button(dp)
+
+
+def register_filters(dp) -> None:
+    """Registers bot filters."""
+    dp.filters_factory.bind(DeliveryManFilter)
+    dp.filters_factory.bind(CustomerFilter)
