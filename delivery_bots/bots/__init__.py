@@ -14,11 +14,11 @@ from delivery_bots.bots.tgbot.checkout.delivery_man.handlers import (
 from delivery_bots.bots.tgbot.checkout.location.handlers import (
     register_handlers_location,
 )
-from delivery_bots.bots.tgbot.common.filters.role import (
+from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
+from delivery_bots.bots.tgbot.servises.filters.role import (
     CustomerFilter,
     DeliveryManFilter,
 )
-from delivery_bots.bots.tgbot.menu.handlers import register_menu_handler
 from delivery_bots.bots.tgbot.start.handlers import register_start_handler
 
 

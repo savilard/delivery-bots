@@ -5,8 +5,8 @@ from aiogram.utils.emoji import emojize
 from delivery_bots.api.moltin.catalog_products.catalog_product import (
     get_catalog_products,
 )
-from delivery_bots.bots.tgbot.common.filters.role import CustomerFilter
 from delivery_bots.bots.tgbot.menu.keyboard import create_menu_keyboard
+from delivery_bots.bots.tgbot.servises.filters.role import CustomerFilter
 from delivery_bots.bots.tgbot.states import BotState
 
 
