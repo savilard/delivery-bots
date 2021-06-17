@@ -4,7 +4,7 @@ from delivery_bots.bots.tgbot.cart.buttons import (
     create_add_product_to_cart_button,
     create_cart_button,
 )
-from delivery_bots.bots.tgbot.common.keyboard_buttons import SHOW_MENU_BUTTON
+from delivery_bots.bots.tgbot.menu.buttons import create_menu_button
 
 
 async def create_catalog_product_detail_keyboard() -> InlineKeyboardMarkup:
@@ -15,6 +15,6 @@ async def create_catalog_product_detail_keyboard() -> InlineKeyboardMarkup:
     keyboard = [
         [add_product_to_cart_button],
         [cart_button],
-        [SHOW_MENU_BUTTON],
+        [await create_menu_button()],
     ]
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
