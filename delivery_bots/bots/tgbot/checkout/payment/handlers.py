@@ -9,13 +9,14 @@ async def handle_payment(query: types.CallbackQuery, state: FSMContext):
     """Handle payment."""
     current_state = await state.get_data()
     payment_token = TgBotSettings().payment_token
-    order_total_amount = 50000
     delivery_total_amount = current_state['delivery_total_amount']
+    order_description = current_state['order_description']
+    order_total_amount = current_state['order_total_amount']
 
     await query.message.bot.send_invoice(
         query.from_user.id,
         title='Оплата заказа',
-        description='Тестовое описание',
+        description=order_description,
         provider_token=payment_token,
         currency='RUB',
         is_flexible=False,

@@ -16,7 +16,7 @@ async def catalog_product_detail_handler(query: CallbackQuery, state: FSMContext
     if query.data == 'go_to_menu':
         await go_to_menu(query, chunk)
     elif query.data == 'go_to_cart':
-        await go_to_cart(query)
+        await go_to_cart(query=query, state=state)
         return None
     elif query.data == 'add_to_cart':
         cart_response = await add_product_to_cart(

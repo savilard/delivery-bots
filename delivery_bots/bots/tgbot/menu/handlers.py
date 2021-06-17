@@ -24,7 +24,7 @@ async def handle_menu(query: CallbackQuery, state: FSMContext):
         await edit_menu(query=query, state=state, chunk=chunk - 1)
         await BotState.menu.set()
     elif query.data == 'go_to_cart':
-        await go_to_cart(query)
+        await go_to_cart(query=query, state=state)
         return None
     else:
         await send_detailed_catalog_product_description(query, state)
