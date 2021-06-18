@@ -1,3 +1,4 @@
+from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
 
 from delivery_bots.api.moltin.cart.cart import (
@@ -14,15 +15,15 @@ from delivery_bots.bots.tgbot.common.messages import delete_previous_message
 from delivery_bots.bots.tgbot.states import BotState
 
 
-async def go_to_cart(query: CallbackQuery) -> None:
+async def go_to_cart(query: CallbackQuery, state: FSMContext) -> None:
     """Goes to the cart."""
     cart_products_response = await get_cart_products(cart_id=query.from_user.id)
     cart_products = await parse_cart_products_response(cart_products_response)
     cart_response = await fetch_cart_response(cart_id=query.from_user.id)
-    cart = Cart(**cart_response.json())
     cart_content_message = await make_cart_content_message(
         cart_products=cart_products,
-        cart_total_amount=cart.data.meta.display_price.with_tax.formatted,  # noqa: WPS219
+        cart=Cart(**cart_response.json()),
+        state=state,
     )
     await display_cart(
         query=query,

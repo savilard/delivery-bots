@@ -23,7 +23,7 @@ async def handler_cart(query: CallbackQuery, state: FSMContext):
         return None
 
     await remove_product_from_cart(cart_id=query.from_user.id, cart_product_id=query.data)
-    await go_to_cart(query)
+    await go_to_cart(query=query, state=state)
 
 
 def register_handler_cart(dp: Dispatcher):

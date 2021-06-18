@@ -24,7 +24,7 @@ async def request_customer_location(message: Message) -> None:
     await BotState.geo.set()
 
 
-def make_message_with_delivery_terms(nearest_pizzeria) -> str:
+async def make_message_with_delivery_terms(nearest_pizzeria, state: FSMContext) -> str:
     """Makes message with delivery terms."""
     distance_to_user = nearest_pizzeria['distance_to_user']
     pizzeria_attr = nearest_pizzeria['pizzeria']
@@ -35,13 +35,21 @@ def make_message_with_delivery_terms(nearest_pizzeria) -> str:
             + f'Она всего в {distance_to_user} км от Вас! Вот её адрес:'
             + f'{pizzeria_attr.address}\nА можем и бесплатно доставить, нам не сложно)'
         )
+        await state.update_data(delivery_total_amount=0)
     elif 0.5 < distance_to_user <= 5:  # noqa: WPS459
+        delivery_total_amount = 100
         message_text = (
             'Похоже, придётся ехать до вас на самокате. '
-            + 'Доставка будет стоить 100 рублей. Доставляем или самовывоз?'
+            + f'Доставка будет стоить {delivery_total_amount} рублей. Доставляем или самовывоз?'
         )
+        await state.update_data(delivery_total_amount=delivery_total_amount * 100)
     elif 5 < distance_to_user <= 20:  # noqa: WPS432
-        message_text = f'Ближайшая до вас пиццерия - {pizzeria_attr.alias}. Стоимость доставки составит 300 рублей'
+        delivery_total_amount = 300
+        message_text = (
+            f'Ближайшая до вас пиццерия - {pizzeria_attr.alias}.'
+            + f' Стоимость доставки составит {delivery_total_amount} рублей'
+        )
+        await state.update_data(delivery_total_amount=delivery_total_amount * 100)
     else:
         message_text = (
             f'Простите, но так далеко мы пиццу не доставляем. Ближайшая пиццерия аж в {distance_to_user} км от Вас!'
@@ -67,7 +75,7 @@ async def send_delivery_terms_to_customer(
     await state.update_data(customer_lat=customer_lat)
 
     await message.answer(
-        text=make_message_with_delivery_terms(nearest_pizzeria),
+        text=await make_message_with_delivery_terms(nearest_pizzeria, state),
         reply_markup=await create_delivery_keyboard(nearest_pizzeria['distance_to_user']),
     )
     await BotState.delivery.set()
