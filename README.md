@@ -2,6 +2,7 @@
 
 ### Latest Changes
 
+* :robot: Add payment. PR [#25](https://github.com/savilard/delivery-bots/pull/25) by [@savilard](https://github.com/savilard).
 * :sparkles: Refactoring code. PR [#24](https://github.com/savilard/delivery-bots/pull/24) by [@savilard](https://github.com/savilard).
 * :robot: Add order reminder. PR [#23](https://github.com/savilard/delivery-bots/pull/23) by [@savilard](https://github.com/savilard).
 * :robot: Add role filter. PR [#22](https://github.com/savilard/delivery-bots/pull/22) by [@savilard](https://github.com/savilard).
