@@ -30,6 +30,34 @@ async def handle_payment(query: types.CallbackQuery, state: FSMContext):
     )
 
 
+async def handle_pre_checkout(query: types.CallbackQuery, pre_checkout_query: types.PreCheckoutQuery):
+    """Handle pre checkout."""
+    await query.message.bot.answer_pre_checkout_query(
+        pre_checkout_query.id,
+        ok=True,
+        error_message=(
+            'Инопланетяне пытались украсть вашу карту, но мы успешно защитили ваши учетные данные,'
+            + 'попробуем заплатить еще раз через несколько минут, нам нужен небольшой отдых.'
+        ),
+    )
+
+
+async def handle_got_payment(message: types.Message):
+    """Handle got payment."""
+    await message.bot.send_message(
+        message.chat.id,
+        (
+            'Hoooooray! Спасибо за оплату! Мы обработаем ваш заказ на `{} {}`'
+            + ' быстро настолько, насколько это возможно! Оставайтесь на связи.'
+        ).format(
+            message.successful_payment.total_amount / 100,
+            message.successful_payment.currency,
+        ),
+    )
+
+
 def register_payment_handler(dp: Dispatcher):
     """Register payment handler."""
     dp.register_callback_query_handler(handle_payment, state=BotState.payment)
+    dp.pre_checkout_query_handler(handle_pre_checkout, lambda query: True, state=BotState.payment)
+    dp.message_handler(handle_got_payment, content_types=types.ContentTypes.SUCCESSFUL_PAYMENT, state=BotState.payment)

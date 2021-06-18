@@ -16,6 +16,7 @@ async def start(message: types.Message, state: FSMContext):
 
     When the bot is launched, the user is sent a menu with catalog products.
     """
+    await state.finish()
     catalog_products = await get_catalog_products()
 
     await message.answer(
